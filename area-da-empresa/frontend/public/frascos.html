@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="/rastreio/img/logo.png">
+<link rel="icon" href="/empresa/rastreio/img/logo.png">
 <title>Cadastro de Frascos e QR Code | Bio-Óleo</title>
-<link rel="stylesheet" href="/empresa.css">
+<link rel="stylesheet" href="/empresa/empresa.css">
 <style>
   .pagina { max-width: 1080px; margin: 0 auto; padding: .5rem clamp(16px, 4vw, 32px) 4rem; }
   .grade-frascos { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; align-items: start; margin-bottom: 24px; }
@@ -39,11 +39,11 @@
 </style>
 </head>
 <body>
-<script src="/cabecalho.js" data-ativo="frascos"></script>
+<script src="/empresa/cabecalho.js" data-ativo="frascos"></script>
 
 <main class="pagina">
   <div class="titulo-central">
-    <img src="/imgs/gota-logo.png" alt="">
+    <img src="/empresa/imgs/gota-logo.png" alt="">
     <h1>Cadastro de Frascos</h1>
   </div>
   <p class="intro">Cadastre os recipientes e vincule o QR Code para acompanhá-los na tela de rastreio.</p>
@@ -141,7 +141,7 @@
             <button type="button" id="btn-qr-ampliar" class="btn">Ampliar</button>
             <button type="button" id="btn-qr-baixar" class="btn">Baixar SVG</button>
             <button type="button" id="btn-qr-imprimir" class="btn">Imprimir</button>
-            <a id="btn-qr-rastrear" class="btn btn-ouro" href="/rastreio/rastreio.html">Abrir no Rastreio</a>
+            <a id="btn-qr-rastrear" class="btn btn-ouro" href="/empresa/rastreio/rastreio.html">Abrir no Rastreio</a>
           </div>
         </div>
 
@@ -174,9 +174,9 @@
   <button type="button" class="btn" data-fechar>Cancelar</button>
 </dialog>
 
-<script src="/rastreio/lib/qrcode.js"></script>
-<script src="/rastreio/lib/html5-qrcode.min.js"></script>
-<script src="/rastreio/config.js"></script>
-<script src="/frascos.js"></script>
+<script src="/empresa/rastreio/lib/qrcode.js"></script>
+<script src="/empresa/rastreio/lib/html5-qrcode.min.js"></script>
+<script src="/empresa/rastreio/config.js"></script>
+<script src="/empresa/frascos.js"></script>
 </body>
 </html>

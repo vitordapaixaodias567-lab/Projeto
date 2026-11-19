@@ -4,14 +4,14 @@
   var ATIVO = (document.currentScript && document.currentScript.dataset.ativo) || "";
 
   var ITENS = [
-    { id: "empresa", texto: "Agendamentos", href: "/", topo: "PAINEL" },
-    { id: "frascos", texto: "Cadastrar frascos", href: "/frascos.html", topo: "FRASCOS" },
-    { id: "avisos", texto: "Avisos", href: "/avisos.html", topo: "AVISOS" },
-    { id: "rastreio", texto: "Rastreio", href: "/rastreio/rastreio.html", topo: "RASTREIO" },
-    { id: "termo", texto: "Termo de entrega", href: "/termo.html", topo: "TERMO" },
-    { id: "entregador", texto: "App do entregador", href: "/rastreio/entregador.html" }
+    { id: "empresa", texto: "Agendamentos", href: "/empresa/", topo: "PAINEL" },
+    { id: "frascos", texto: "Cadastrar frascos", href: "/empresa/frascos.html", topo: "FRASCOS" },
+    { id: "avisos", texto: "Avisos", href: "/empresa/avisos.html", topo: "AVISOS" },
+    { id: "rastreio", texto: "Rastreio", href: "/empresa/rastreio/rastreio.html", topo: "RASTREIO" },
+    { id: "termo", texto: "Termo de entrega", href: "/empresa/termo.html", topo: "TERMO" },
+    { id: "entregador", texto: "App do entregador", href: "/empresa/rastreio/entregador.html" }
   ];
-  var LOGO = "/imgs/3d_green_gradient_recycle_sign-Photoroom.png";
+  var LOGO = "/empresa/imgs/3d_green_gradient_recycle_sign-Photoroom.png";
 
   var topo = ITENS.filter(function (i) { return i.topo; }).map(function (i) {
     return '<a href="' + i.href + '">' + (ATIVO === i.id ? "<span>" + i.topo + "</span>" : i.topo) + "</a>";
@@ -27,7 +27,7 @@
         '<img src="' + LOGO + '" alt=""><h1>BIO-ÓLEO</h1>' +
       "</div>" +
       '<nav class="cab-topo" aria-label="Atalhos">' + topo + "</nav>" +
-      '<a class="cab-pill" href="/" data-sair>SAIR</a>' +
+      '<a class="cab-pill" href="/empresa/" data-sair>SAIR</a>' +
     "</header>" +
     '<div class="cab-overlay"></div>' +
     '<aside id="cab-gaveta" class="cab-gaveta" aria-label="Menu principal">' +
@@ -35,7 +35,7 @@
         '<div class="cab-marca"><img src="' + LOGO + '" alt=""><span>BIO-ÓLEO</span></div>' +
         '<button type="button" class="cab-fechar" aria-label="Fechar menu">&times;</button>' +
       "</header>" +
-      "<nav>" + menu + '<a href="/" class="cab-sair" data-sair>Sair</a></nav>' +
+      "<nav>" + menu + '<a href="/empresa/" class="cab-sair" data-sair>Sair</a></nav>' +
     "</aside>";
 
   document.body.insertAdjacentHTML("afterbegin", html);

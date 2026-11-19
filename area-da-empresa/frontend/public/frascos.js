@@ -45,8 +45,8 @@ async function chamar(rota, opcoes = ) {
 
 function urlRastreio(codigo) {
   const base = window.BIOOLEO_SITE_URL
-    ? new URL("/rastreio/rastreio.html", window.BIOOLEO_SITE_URL)
-    : new URL("/rastreio/rastreio.html", location.origin);
+    ? new URL("/empresa/rastreio/rastreio.html", window.BIOOLEO_SITE_URL)
+    : new URL("/empresa/rastreio/rastreio.html", location.origin);
   base.searchParams.set("id", codigo);
   return base.href;
 }
@@ -65,7 +65,7 @@ function exibirQr(frasco) {
   $("qr-preview-wrap").hidden = false;
   $("qr-preview").innerHTML = gerarQrSvg(codigo, { cellSize: 4, margin: 0, scalable: true });
   $("qr-preview-id").textContent = `${frasco.id}${frasco.qrCodigo && frasco.qrCodigo !== frasco.id ? ` (QR: ${frasco.qrCodigo})` : ""}`;
-  $("btn-qr-rastrear").href = `/rastreio/rastreio.html?id=${encodeURIComponent(codigo)}`;
+  $("btn-qr-rastrear").href = `/empresa/rastreio/rastreio.html?id=${encodeURIComponent(codigo)}`;
 }
 
 $("btn-qr-ampliar").addEventListener("click", () => {
@@ -239,7 +239,7 @@ function renderizarLista() {
 
     const linkRastrear = document.createElement("a");
     linkRastrear.className = "btn btn-ouro";
-    linkRastrear.href = `/rastreio/rastreio.html?id=${encodeURIComponent(f.qrCodigo || f.id)}`;
+    linkRastrear.href = `/empresa/rastreio/rastreio.html?id=${encodeURIComponent(f.qrCodigo || f.id)}`;
     linkRastrear.textContent = "Rastrear";
 
     acoes.append(btnQr, linkRastrear);

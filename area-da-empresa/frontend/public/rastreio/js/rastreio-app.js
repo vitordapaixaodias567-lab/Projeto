@@ -71,7 +71,7 @@
   }
 
   function urlConsulta(id) {
-    var base = window.BIOOLEO_SITE_URL ? new URL('/rastreio/rastreio.html', window.BIOOLEO_SITE_URL) : new URL(location.href);
+    var base = window.BIOOLEO_SITE_URL ? new URL('/empresa/rastreio/rastreio.html', window.BIOOLEO_SITE_URL) : new URL(location.href);
     base.search = ''; base.hash = ''; base.searchParams.set('id', id); return base.href;
   }
   function avisoQr() {

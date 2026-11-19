@@ -49,7 +49,7 @@
     var it = itens.filter(function (x) { return x.id === f.id; })[0], zap = $('#e-zap');
     var dig = it ? String(it.telefone || '').replace(/\D/g, '') : '';
     if (dig.length >= 10 && it.token) {
-      var link = location.origin + '/rastreio/rastreio.html?id=' + f.id + '&t=' + it.token;
+      var link = location.origin + '/empresa/rastreio/rastreio.html?id=' + f.id + '&t=' + it.token;
       zap.href = 'https://wa.me/' + (dig.length <= 11 ? '55' + dig : dig) + '?text=' + encodeURIComponent('Olá, ' + f.cliente + '! Aqui é a equipe da Bio Óleo / Brasil. Estamos a caminho da sua coleta. Acompanhe em tempo real: ' + link);
       zap.hidden = false;
     } else zap.hidden = true;

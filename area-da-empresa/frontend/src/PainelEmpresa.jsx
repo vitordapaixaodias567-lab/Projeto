@@ -69,10 +69,10 @@ export default function PainelEmpresa() {
       <Cabecalho ativo="empresa" />
       <main className="bo-wrap">
         <div className="titulo-central">
-          <img src="/imgs/gota-logo.png" alt="" />
+          <img src="/empresa/imgs/gota-logo.png" alt="" />
           <h1 className="ag-title">Painel da empresa</h1>
         </div>
-        <p className="ag-subtitle">Acompanhe os agendamentos, registre entregas e marque as coletas. <a className="bo-link" href="/rastreio/entregador.html">Abrir o app do entregador</a> · <a className="bo-link" href="/termo.html">Entrega com termo de responsabilidade</a> · <a className="bo-link" href="/frascos.html">Cadastrar frascos e QR Code</a></p>
+        <p className="ag-subtitle">Acompanhe os agendamentos, registre entregas e marque as coletas. <a className="bo-link" href="/empresa/rastreio/entregador.html">Abrir o app do entregador</a> · <a className="bo-link" href="/empresa/termo.html">Entrega com termo de responsabilidade</a> · <a className="bo-link" href="/empresa/frascos.html">Cadastrar frascos e QR Code</a></p>
         {!lista ? (
           <form className="bo-busca bo-vidro" onSubmit={entrar}>
             <input className="ag-input" type="password" placeholder="Chave de acesso da equipe" value={chave} onChange={(e) => setChave(e.target.value)} aria-label="Chave de acesso" />
