@@ -36,7 +36,7 @@ export default function Cabecalho({ ativo }) {
   }, []);
 
   const sair = () => {
-    try { localStorage.removeItem(CHAVE_EQUIPE); } catch 
+    try { localStorage.removeItem(CHAVE_EQUIPE); } catch {}
   };
 
   const classe = (base) => `${base}${aberto ? " cab-aberto" : ""}`;
