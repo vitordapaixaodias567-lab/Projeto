@@ -1,4 +1,5 @@
 import path from 'path';
+import { fileURLToPath } from 'url';
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
@@ -7,6 +8,10 @@ import { db, ensureSchema, limparLocalizacoes } from "./db.js";
 import { agendarGeocodificacao } from "./geocodificar.js";
 import rastreio, { exigirAdmin, registrarAgendamentoCriado, codigo } from "./rastreio.js";
 import avisos from "./avisos.js";
+
+// Configuração obrigatória para usar __dirname com ES Modules (import)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -82,7 +87,6 @@ app.get("/listar-agendamento", exigirAdmin, async (_req, res) => {
     const connection = db;
 
     try {
-        
         const [rows] = await connection.execute(
             "SELECT id, nome, telefone, dia, hora, rua, casa, bairro, complemento, quantidade_litros, observacoes FROM agendamentos"
         );
@@ -109,15 +113,14 @@ try {
 limparLocalizacoes().catch((e) => console.warn("Limpeza de posições antigas falhou:", e.message));
 setInterval(() => limparLocalizacoes().catch(() => {}), 24 * 3600 * 1000).unref();
 
-
-// --- Adicionado para o Render ---
-// 1. Servir a Tela do Cliente (arquivos estaticos na raiz do repositorio)
+// --- Configuração das Rotas Estáticas (Render) ---
+// 1. Servir a Tela do Cliente
 app.use(express.static(path.join(__dirname, '../')));
 
-// 2. Servir a Tela da Empresa (Build do React/Vite)
-app.use('/empresa', require('express').static(path.join(__dirname, '../area-da-empresa/frontend/dist')));
+// 2. Servir a Tela da Empresa
+app.use('/empresa', express.static(path.join(__dirname, '../area-da-empresa/frontend/dist')));
 
-// 3. Redirecionar rotas nao encontradas na '/empresa' para o React (SPA fallback)
+// 3. Redirecionar rotas não encontradas
 app.get('/empresa/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../area-da-empresa/frontend/dist/index.html'));
 });
