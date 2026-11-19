@@ -1,0 +1,24 @@
+{
+  "name": "area-da-empresa-backend",
+  "version": "1.0.0",
+  "description": "API da Área da Empresa (Bio Óleo): agendamentos, rastreio, entregador e termo de responsabilidade.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "exemplo": "node scripts/exemplo.mjs",
+    "test": "node tests/geocodificar.test.mjs && node tests/google.test.mjs && node tests/rota.test.mjs && node tests/smoke.mjs && node tests/termo.test.mjs && node tests/avisos.test.mjs"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "nodemon": "^3.1.14"
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}

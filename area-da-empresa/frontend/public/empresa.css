@@ -1,0 +1,133 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap");
+
+:root {
+  --branco: #fff;
+  --amrelo-principal: #F2B705;
+  --amarelo-1: #ffd60a;
+  --amarelo-2: #ffe766;
+  --verde: #2FA84F;
+  --ambar: #B8700A;
+  --vermelho: #ff5a5a;
+  --card-bg: rgba(0, 0, 0, 0.55);
+  --card-borda: rgba(255, 255, 255, 0.18);
+  --campo-borda: rgba(255, 255, 255, 0.28);
+  --mut: rgba(255, 255, 255, 0.7);
+}
+
+body {
+  margin: 0;
+  background: #000;
+  color: var(--branco);
+  font-family: "Montserrat", system-ui, sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image: url("/imgs/bioleo-background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 55%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+@media (max-width: 600px) {
+  body::before { background-position: 75% center; }
+  body::after { background: rgba(0, 0, 0, 0.5); }
+}
+
+@media print {
+  body::before, body::after, .cab-barra, .cab-overlay, .cab-gaveta { display: none !important; }
+}
+
+.cab-barra { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.5rem 2rem 1.5rem 1.5rem; font-family: "Montserrat", system-ui, sans-serif; }
+.cab-logo { display: flex; align-items: center; gap: 1rem; color: #fff; }
+.cab-logo img { width: 2rem; }
+.cab-logo h1 { margin: 0; font-size: 1.2rem; font-weight: 600; text-transform: none; }
+
+.cab-burger { width: 42px; height: 42px; flex: none; padding: 0; border: 0; border-radius: 10px; background: transparent; cursor: pointer; display: grid; place-content: center; transition: 0.25s; }
+.cab-burger::before { content: ""; width: 22px; height: 2px; border-radius: 2px; background: #fff; box-shadow: 0 7px 0 #fff, 0 14px 0 #fff; transform: translateY(-7px); }
+.cab-burger:hover { background: rgba(255, 255, 255, 0.12); box-shadow: 0 0 12px rgba(255, 255, 255, 0.35); }
+.cab-burger:focus-visible, .cab-gaveta :focus-visible { outline: 2px solid #ffd60a; outline-offset: 2px; }
+
+.cab-topo { flex: 1; display: flex; align-items: center; justify-content: center; gap: 2rem; }
+.cab-topo a { color: #fff; text-decoration: none; font-size: 0.9rem; }
+.cab-topo span { position: relative; display: inline-block; }
+.cab-topo span::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 9%; height: 4px; border-radius: 2px; background: #F2B705; }
+
+.cab-pill { padding: 0.5rem 0.9rem; font-size: 0.9rem; font-weight: 100; color: #fff; text-decoration: none; border: solid #fff 1px; border-radius: 20px; background: rgba(0, 0, 0, 0.12); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: 0.3s; }
+.cab-pill:hover { padding: 0.6rem 1rem; box-shadow: #fafafa 0 0 15px; }
+
+.cab-overlay { position: fixed; inset: 0; z-index: 20; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); opacity: 0; visibility: hidden; transition: opacity 0.25s, visibility 0.25s; }
+.cab-overlay.cab-aberto { opacity: 1; visibility: visible; }
+
+.cab-gaveta { position: fixed; top: 0; left: 0; bottom: 0; z-index: 30; width: min(300px, 82vw); display: flex; flex-direction: column; color: #fff; font-family: "Montserrat", system-ui, sans-serif; background: rgba(20, 14, 0, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-right: 1px solid rgba(255, 255, 255, 0.18); box-shadow: 0 0 50px rgba(0, 0, 0, 0.6); transform: translateX(-100%); visibility: hidden; transition: transform 0.28s ease, visibility 0s 0.28s; }
+.cab-gaveta.cab-aberto { transform: none; visibility: visible; transition: transform 0.28s ease; }
+
+.cab-gaveta-topo { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1rem 1.2rem 1.4rem; border-bottom: 1px solid rgba(255, 255, 255, 0.18); }
+.cab-marca { display: flex; align-items: center; gap: 0.7rem; font-size: 1.1rem; font-weight: 600; }
+.cab-marca img { width: 1.8rem; }
+.cab-fechar { width: 40px; height: 40px; border: 0; border-radius: 10px; background: transparent; color: #fff; font-size: 1.6rem; cursor: pointer; transition: 0.25s; }
+.cab-fechar:hover { background: rgba(255, 255, 255, 0.12); }
+
+.cab-gaveta nav { flex: 1; display: flex; flex-direction: column; gap: 0.3rem; padding: 1rem; }
+.cab-gaveta nav a { display: block; padding: 0.85rem 1rem; border-radius: 10px; color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.3px; transition: 0.25s; }
+.cab-gaveta nav a:hover { background: rgba(255, 255, 255, 0.1); }
+.cab-gaveta nav a[aria-current="page"] { color: #14110a; font-weight: 600; background: linear-gradient(90deg, #ffd60a, #ffe766); }
+.cab-gaveta nav a.cab-sair { margin-top: auto; text-align: center; border: 1px solid rgba(255, 255, 255, 0.28); }
+
+@media (max-width: 700px) {
+  .cab-barra { padding: 1rem; }
+  .cab-topo { display: none; }
+  .cab-logo { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cab-gaveta, .cab-overlay { transition: none; }
+}
+
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+.titulo-central { text-align: center; padding: 1rem 1rem 0; }
+.titulo-central img { width: 5rem; margin-top: 1rem; }
+.titulo-central h1 { margin: 0.5rem 0 0.3rem; font-size: 2rem; font-weight: 700; text-transform: uppercase; color: var(--branco); text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7); }
+
+.intro { margin: 0 0 1.5rem; font-size: 0.9rem; text-align: center; color: rgba(255, 255, 255, 0.9); text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8); }
+.mut { margin: 0.2em 0 0.8em; color: var(--mut); line-height: 1.55; }
+.erro { color: var(--vermelho); }
+
+.card { background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--card-borda); border-radius: 18px; padding: clamp(16px, 3vw, 28px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45); }
+.card h2 { margin: 0 0 0.6em; font-size: 1.15rem; font-weight: 700; }
+.card, .card *, .campo, .busca input, .ent input, .btn { box-sizing: border-box; }
+
+.campo, .busca input, .ent input, .card textarea {
+  width: 100%; background: rgba(0, 0, 0, 0.35); border: 1px solid var(--campo-borda); border-radius: 10px;
+  padding: 0.7rem 0.9rem; color: var(--branco); font: inherit; font-size: 1rem; outline: none; color-scheme: dark; transition: 0.25s;
+}
+.campo::placeholder, .busca input::placeholder, .ent input::placeholder, .card textarea::placeholder { color: rgba(255, 255, 255, 0.5); }
+.campo:focus, .busca input:focus, .ent input:focus, .card textarea:focus { border-color: var(--amarelo-1); box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.15); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 2.8rem; padding: 0 1.3rem;
+  color: var(--branco); font: inherit; font-size: 0.85rem; font-weight: 500; text-decoration: none;
+  background: rgba(0, 0, 0, 0.12); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--branco); border-radius: 20px; cursor: pointer; transition: 0.3s;
+}
+.btn:hover { box-shadow: #fafafa 0 0 10px 3px; }
+.btn-ouro { color: #000; font-weight: 600; background: linear-gradient(90deg, var(--amarelo-1) 0%, #ffe66d 100%); border-color: transparent; }
+.btn-ouro:hover { box-shadow: var(--amrelo-principal) 0 0 10px 5px; }
+.btn-perigo { color: var(--vermelho); border-color: var(--vermelho); }
+.btn-perigo:hover { color: var(--branco); background: var(--vermelho); box-shadow: none; }
+.btn-ativo { background: var(--verde); border-color: var(--verde); }
+.btn:focus-visible, .campo:focus-visible { outline: 2px solid var(--amarelo-1); outline-offset: 2px; }
