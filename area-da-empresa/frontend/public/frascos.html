@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/rastreio/img/logo.png">
+<title>Cadastro de Frascos e QR Code | Bio-Óleo</title>
+<link rel="stylesheet" href="/empresa.css">
+<style>
+  .pagina { max-width: 1080px; margin: 0 auto; padding: .5rem clamp(16px, 4vw, 32px) 4rem; }
+  .grade-frascos { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; align-items: start; margin-bottom: 24px; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px; }
+  .campo-grupo { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .campo-grupo label { font-size: .82rem; font-weight: 600; color: rgba(255,255,255,.88); }
+  .linha-qr { display: flex; gap: 8px; flex-wrap: wrap; }
+  .linha-qr input { flex: 1 1 180px; text-transform: uppercase; }
+  .qr-box { background: #fff; border-radius: 14px; padding: 14px; width: min(100%, 230px); margin: 14px auto; }
+  .qr-box svg { display: block; width: 100%; height: auto; }
+  .qr-codigo { text-align: center; color: var(--amarelo-1); font-weight: 700; font-size: 1.1rem; margin: 6px 0 12px; }
+  .acoes { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .estado { min-height: 1.4em; margin: .6rem 0 1rem; text-align: center; color: var(--amarelo-1); font-weight: 500; }
+  .estado[data-tipo="erro"] { color: var(--vermelho); }
+  .lista-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+  .frasco-item { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; }
+  .frasco-topo { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .frasco-topo h3 { margin: 0; color: var(--amarelo-1); font-size: 1.15rem; }
+  .selo-st { padding: 4px 10px; border-radius: 999px; font-size: .72rem; font-weight: 700; border: 1px solid var(--amrelo-principal); color: var(--amrelo-principal); }
+  .selo-st.COLETADO { border-color: var(--verde); color: var(--verde); }
+  .selo-st.CANCELADA { border-color: var(--vermelho); color: var(--vermelho); }
+  .meta { font-size: .85rem; color: rgba(255,255,255,.85); line-height: 1.5; margin: 0; }
+  .etapa-bar { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .etapa-bar select { flex: 1 1 150px; padding: .45rem .7rem; font-size: .85rem; }
+  .etapa-bar .btn { min-height: 2.3rem; padding: 0 .9rem; font-size: .8rem; }
+  .dlg { background: rgba(20,14,0,.95); color: var(--branco); border: 1px solid var(--card-borda); border-radius: 18px; padding: 20px; text-align: center; max-width: 94vw; }
+  .dlg::backdrop { background: rgba(0,0,0,.75); }
+  #leitor-qr { width: min(86vw, 350px); margin: 12px auto; }
+  .qr-g { width: min(86vw, 380px); }
+  @media (max-width: 820px) { .grade-frascos { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<script src="/cabecalho.js" data-ativo="frascos"></script>
+
+<main class="pagina">
+  <div class="titulo-central">
+    <img src="/imgs/gota-logo.png" alt="">
+    <h1>Cadastro de Frascos</h1>
+  </div>
+  <p class="intro">Cadastre os recipientes e vincule o QR Code para acompanhá-los na tela de rastreio.</p>
+
+  <section id="acesso" class="card" hidden style="max-width:480px;margin:0 auto 1.5rem">
+    <h2>Acesso da equipe</h2>
+    <form id="form-acesso" class="linha-qr">
+      <label class="sr" for="chave">Chave da equipe</label>
+      <input id="chave" class="campo" type="password" placeholder="Chave de acesso da equipe" autocomplete="current-password">
+      <button class="btn btn-ouro" type="submit">Entrar</button>
+    </form>
+  </section>
+
+  <p id="msg" class="estado" role="status" aria-live="polite"></p>
+
+  <div id="conteudo" hidden>
+    <div class="grade-frascos">
+      <form id="form-frasco" class="card">
+        <h2>Novo frasco</h2>
+
+        <div class="form-grid">
+          <div class="campo-grupo">
+            <label for="tipo">Tipo do recipiente</label>
+            <select id="tipo" class="campo">
+              <option value="Bombona PEAD">Bombona PEAD</option>
+              <option value="Galão Plástico">Galão Plástico</option>
+              <option value="Tambor">Tambor</option>
+              <option value="Reservatório Comercial">Reservatório Comercial</option>
+            </select>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="capacidade">Capacidade (litros)</label>
+            <input id="capacidade" class="campo" type="number" min="1" max="50000" step="0.5" value="20" required>
+          </div>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="qrCodigo">Código do QR Code (deixe em branco para gerar automático)</label>
+          <div class="linha-qr">
+            <input id="qrCodigo" class="campo" type="text" maxlength="40" placeholder="Ex.: FR-00001 ou código da etiqueta">
+            <button type="button" id="btn-ler-qr" class="btn">Ler QR com câmera</button>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="campo-grupo">
+            <label for="statusInicial">Status inicial</label>
+            <select id="statusInicial" class="campo">
+              <option value="AGENDADA">Disponível / Agendado</option>
+              <option value="ENTREGUE">Entregue ao cliente</option>
+              <option value="EM_ROTA">Em rota</option>
+            </select>
+          </div>
+
+          <div class="campo-grupo">
+            <label for="agendamentoCodigo">Vincular agendamento (opcional)</label>
+            <input id="agendamentoCodigo" class="campo" type="text" maxlength="12" placeholder="Ex.: BO-00001" style="text-transform:uppercase">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="campo-grupo">
+            <label for="clienteNome">Cliente / Destinatário (opcional)</label>
+            <input id="clienteNome" class="campo" type="text" maxlength="120" placeholder="Nome do cliente ou empresa">
+          </div>
+
+          <div class="campo-grupo">
+            <label for="bairro">Bairro (opcional)</label>
+            <input id="bairro" class="campo" type="text" maxlength="80" placeholder="Bairro">
+          </div>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="endereco">Local / Endereço atual (opcional)</label>
+          <input id="endereco" class="campo" type="text" maxlength="180" placeholder="Ex.: Base Bio Óleo ou Rua, número">
+        </div>
+
+        <div class="campo-grupo">
+          <label for="observacoes">Observações (opcional)</label>
+          <input id="observacoes" class="campo" type="text" maxlength="255" placeholder="Lote, cor da tampa, estado de conservação...">
+        </div>
+
+        <button class="btn btn-ouro" type="submit" style="width:100%">Cadastrar frasco e gerar QR Code</button>
+      </form>
+
+      <section class="card" aria-labelledby="titulo-qr-card">
+        <h2 id="titulo-qr-card">QR Code para rastreio</h2>
+        <p class="mut">Ao cadastrar o frasco, o QR Code abaixo é vinculado automaticamente à tela de rastreio.</p>
+
+        <div id="qr-preview-wrap" hidden>
+          <div id="qr-preview" class="qr-box"></div>
+          <p id="qr-preview-id" class="qr-codigo"></p>
+          <div class="acoes">
+            <button type="button" id="btn-qr-ampliar" class="btn">Ampliar</button>
+            <button type="button" id="btn-qr-baixar" class="btn">Baixar SVG</button>
+            <button type="button" id="btn-qr-imprimir" class="btn">Imprimir</button>
+            <a id="btn-qr-rastrear" class="btn btn-ouro" href="/rastreio/rastreio.html">Abrir no Rastreio</a>
+          </div>
+        </div>
+
+        <p id="qr-vazio" class="mut" style="text-align:center;padding:2rem 0">Cadastre um frasco ao lado ou selecione um da lista para gerar e imprimir o QR Code.</p>
+      </section>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="linha-qr" style="align-items:center">
+        <h2 style="margin:0;flex:1">Frascos cadastrados</h2>
+        <input id="filtro-busca" class="campo" type="search" placeholder="Filtrar por código, QR ou cliente..." style="max-width:320px">
+      </div>
+    </div>
+
+    <p id="lista-vazia" class="mut" style="text-align:center" hidden>Nenhum frasco cadastrado ainda.</p>
+    <div id="lista-frascos" class="lista-cards"></div>
+  </div>
+</main>
+
+<dialog id="dlg-qr" class="dlg">
+  <div id="qr-grande" class="qr-box qr-g"></div>
+  <p id="qr-grande-id" class="qr-codigo"></p>
+  <button type="button" class="btn" data-fechar>Fechar</button>
+</dialog>
+
+<dialog id="dlg-leitor" class="dlg">
+  <h2>Ler QR Code do frasco</h2>
+  <div id="leitor-qr"></div>
+  <p id="leitor-msg" class="mut" role="status"></p>
+  <button type="button" class="btn" data-fechar>Cancelar</button>
+</dialog>
+
+<script src="/rastreio/lib/qrcode.js"></script>
+<script src="/rastreio/lib/html5-qrcode.min.js"></script>
+<script src="/rastreio/config.js"></script>
+<script src="/frascos.js"></script>
+</body>
+</html>

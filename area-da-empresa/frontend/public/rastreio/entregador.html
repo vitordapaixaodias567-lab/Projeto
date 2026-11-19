@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#000000">
+<title>App do entregador | Bio Óleo / Brasil</title>
+<link rel="icon" href="img/logo.png">
+<link rel="stylesheet" href="/empresa.css">
+<link rel="stylesheet" href="css/rastreio.css">
+<style>
+.ent{max-width:560px;margin:0 auto;padding:.5rem 16px 3rem}
+.ent .titulo-central{padding-bottom:.6rem}
+.ent .card{margin-bottom:14px}
+.ent .btn{width:100%;margin-top:10px;min-height:3.4rem;font-size:1rem}
+.ent input{margin-top:8px}
+.ent .item{display:block;width:100%;text-align:left;background:var(--card-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--card-borda);border-radius:18px;padding:16px;color:var(--branco);font:inherit;margin-bottom:12px;cursor:pointer;box-shadow:0 20px 50px rgba(0,0,0,.45);transition:.25s}
+.ent .item:hover{border-color:var(--amarelo-1)}
+.ent .item strong{color:var(--amarelo-1);font-size:1.1rem}
+.ent a.btn{display:flex;align-items:center;justify-content:center;text-decoration:none}
+</style>
+</head>
+<body>
+<script src="/cabecalho.js" data-ativo="entregador"></script>
+<main class="ent">
+  <div class="titulo-central">
+    <img src="/imgs/gota-logo.png" alt="">
+    <h1>Entregas de hoje</h1>
+  </div>
+  <p id="msg" class="mut" role="status" aria-live="polite"></p>
+
+  <section id="login" class="card" hidden>
+    <h2>Acesso da equipe</h2>
+    <label class="sr" for="chave">Chave da equipe</label>
+    <input id="chave" type="password" placeholder="Chave da equipe" autocomplete="current-password">
+    <button id="btn-entrar" class="btn btn-ouro" type="button">Entrar</button>
+  </section>
+
+  <section id="lista" hidden></section>
+
+  <section id="entrega" hidden>
+    <div class="card">
+      <h2 id="e-id"></h2>
+      <div id="e-status" class="barra-status"><span>Status</span><strong id="e-status-txt"></strong></div>
+      <dl class="dados">
+        <div><dt>Cliente</dt><dd id="e-cliente"></dd></div>
+        <div><dt>Endereço</dt><dd id="e-end"></dd></div>
+        <div><dt>Óleo previsto</dt><dd id="e-litros"></dd></div>
+      </dl>
+      <a id="e-zap" class="btn" target="_blank" rel="noopener">Avisar o cliente no WhatsApp</a>
+      <a id="e-nav" class="btn btn-ouro" target="_blank" rel="noopener">Abrir navegação no Google Maps</a>
+    </div>
+    <div class="card">
+      <h2>Posição ao vivo</h2>
+      <p class="mut">Ao iniciar, o cliente passa a ver sua posição no mapa. Mantenha esta tela aberta e ligada.</p>
+      <button id="btn-iniciar" class="btn btn-ouro" type="button">Iniciar rota e compartilhar posição</button>
+      <p id="gps" class="mut" role="status" aria-live="polite"></p>
+    </div>
+    <div class="card">
+      <h2>Concluir coleta</h2>
+      <label class="mut" for="litros">Litros coletados</label>
+      <input id="litros" type="number" inputmode="decimal" min="0.5" step="0.5">
+      <button id="btn-coletar" class="btn" type="button">Marcar como coletado</button>
+    </div>
+    <button id="btn-voltar" class="btn" type="button">Voltar à lista</button>
+  </section>
+</main>
+<script src="config.js"></script>
+<script src="js/rastreio-rules.js"></script>
+<script src="js/rastreio-service.js"></script>
+<script src="js/entregador.js"></script>
+</body>
+</html>

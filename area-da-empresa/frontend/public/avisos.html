@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/rastreio/img/logo.png">
+<title>Avisos | Bio-Óleo</title>
+<link rel="stylesheet" href="/empresa.css">
+<link rel="stylesheet" href="/avisos.css">
+</head>
+<body>
+<script src="/cabecalho.js" data-ativo="avisos"></script>
+
+<main class="pagina">
+  <div class="titulo-central">
+    <img src="/imgs/gota-logo.png" alt="">
+    <h1>Avisos aos clientes</h1>
+  </div>
+  <p class="intro">Escreva um aviso e ele aparece para os clientes na tela de avisos do painel deles.</p>
+
+  <section id="acesso" class="card acesso" hidden>
+    <h2>Acesso da equipe</h2>
+    <form id="form-acesso">
+      <label class="sr" for="chave">Chave da equipe</label>
+      <input id="chave" class="campo" type="password" placeholder="Chave de acesso da equipe" autocomplete="current-password">
+      <button class="btn btn-ouro" type="submit">Entrar</button>
+    </form>
+  </section>
+
+  <p id="msg" class="estado" role="status" aria-live="polite"></p>
+
+  <div id="conteudo" hidden>
+    <form id="form-aviso" class="card novo">
+      <h2>Novo aviso</h2>
+
+      <label for="titulo">Título</label>
+      <input id="titulo" class="campo" type="text" maxlength="80" placeholder="Ex.: Coletas de dezembro" autocomplete="off" required>
+
+      <label for="mensagem">Mensagem</label>
+      <textarea id="mensagem" maxlength="1000" rows="5" placeholder="Escreva o aviso para os clientes" required></textarea>
+      <small id="contador" class="mut">0 / 1000</small>
+
+      <label class="marca-importante" for="importante">
+        <input id="importante" type="checkbox">
+        Marcar como importante
+      </label>
+
+      <button class="btn btn-ouro" type="submit">Enviar aviso</button>
+    </form>
+
+    <h2 class="subtitulo">Avisos enviados</h2>
+    <p id="vazio" class="mut centro" hidden>Nenhum aviso enviado ainda.</p>
+    <div id="lista" class="lista-avisos"></div>
+  </div>
+</main>
+
+<script src="/rastreio/config.js"></script>
+<script src="/avisos.js"></script>
+</body>
+</html>

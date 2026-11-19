@@ -1,0 +1,42 @@
+{
+  "pessoas": [
+    {
+      "nome": "Igor Emanoel",
+      "idade": "34",
+      "email": "igor123@gmail.com",
+      "senha": "pbkdf2$600000$xoPDIcBX2G2jiokfv14F0g==$eCSqsXXwIESw8MNlcghFwNymmvP8s9gKNPNYHQlzolk=",
+      "id": "DKn7RJykK-4",
+      "cpf": "v1.sSyEJ+wsOkRjWR0i.cyxhvUBErnV5AIMVJDZB98NodZ9hLtjcI5OE",
+      "telefone": "(55) 88923-8212",
+      "cpfHash": "PBQ5c0l/mvqo1d0FdooNhY7I0T8rFl+Sn6TftRshslY="
+    }
+  ],
+  "agendamentos": [],
+  "avisos": [
+    {
+      "id": "1",
+      "titulo": "Coletas no final do mês",
+      "texto": "As coletas são realizadas todo final de mês, entre os dias 28, 29 e 30.",
+      "data": "2026-11-12"
+    },
+    {
+      "id": "2",
+      "titulo": "Prepare o óleo para a coleta",
+      "texto": "Coloque o líquido dentro de um reservatório para facilitar a coleta.",
+      "data": "2026-11-12"
+    },
+    {
+      "id": "3",
+      "titulo": "Quantidade mínima",
+      "texto": "O agendamento de coleta exige no mínimo 5 litros de óleo.",
+      "data": "2026-11-12"
+    },
+    {
+      "id": "4",
+      "titulo": "Cuidados com o recipiente",
+      "texto": "Recipiente danificado ou perdido pode ter o valor descontado do valor final ou gerar multa, conforme o termo de uso.",
+      "data": "2026-11-12"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
