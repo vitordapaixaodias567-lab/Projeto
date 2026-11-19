@@ -121,7 +121,7 @@ app.use(express.static(path.join(__dirname, '../')));
 app.use('/empresa', express.static(path.join(__dirname, '../area-da-empresa/frontend/dist')));
 
 // 3. Redirecionar rotas não encontradas
-app.get('/empresa/*', (req, res) => {
+app.use('/empresa', (req, res) => {
     res.sendFile(path.join(__dirname, '../area-da-empresa/frontend/dist/index.html'));
 });
 // --------------------------------
