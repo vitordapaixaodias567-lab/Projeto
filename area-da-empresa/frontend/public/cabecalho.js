@@ -59,6 +59,6 @@
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && gaveta.classList.contains("cab-aberto")) abrir(false); });
 
   Array.prototype.forEach.call(document.querySelectorAll("[data-sair]"), function (a) {
-    a.addEventListener("click", function () { try { localStorage.removeItem(CHAVE_EQUIPE); } catch (e)  });
+    a.addEventListener("click", function () { try { localStorage.removeItem(CHAVE_EQUIPE); } catch (e) {} });
   });
 })();

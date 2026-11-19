@@ -14,9 +14,9 @@ function mostrarAviso(texto, erro) {
 }
 
 const chave = () => { try { return localStorage.getItem(CHAVE) || ""; } catch { return ""; } };
-async function chamar(rota, opcoes = ) {
-    const r = await fetch(API + rota, { ...opcoes, headers: { "Content-Type": "application/json", "x-admin-key": chave(), "x-responsavel": "App do motorista", ...(opcoes.headers || ) } });
-    const j = await r.json().catch(() => ());
+async function chamar(rota, opcoes = {}) {
+    const r = await fetch(API + rota, { ...opcoes, headers: { "Content-Type": "application/json", "x-admin-key": chave(), "x-responsavel": "App do motorista", ...(opcoes.headers || {}) } });
+    const j = await r.json().catch(() => ({}));
     return { ok: r.ok, status: r.status, j };
 }
 
@@ -32,7 +32,7 @@ function mostrarFrasco() {
 }
 async function carregar(preferido) {
     const r = await chamar("/api/admin/frascos");
-    if (r.status === 401) { try { localStorage.removeItem(CHAVE); } catch  mostrarAviso("Chave da equipe incorreta.", true); return mostrarEntrada(); }
+    if (r.status === 401) { try { localStorage.removeItem(CHAVE); } catch {} mostrarAviso("Chave da equipe incorreta.", true); return mostrarEntrada(); }
     if (!r.ok) return mostrarAviso("Não foi possível carregar os frascos. O backend está rodando?", true);
     frascos = r.j.filter((f) => f.status === "AGENDADA").reverse();
     $("frasco").innerHTML = frascos.map((f) => `<option value="${f.id}">${f.id} · ${f.cliente}</option>`).join("");
@@ -43,7 +43,7 @@ async function carregar(preferido) {
 function mostrarEntrada() { $("blocoChave").hidden = false; $("blocoTermo").hidden = true; }
 $("frasco").addEventListener("change", mostrarFrasco);
 $("entrar").addEventListener("click", () => {
-    try { localStorage.setItem(CHAVE, $("chave").value.trim()); } catch 
+    try { localStorage.setItem(CHAVE, $("chave").value.trim()); } catch {}
     carregar(new URLSearchParams(location.search).get("id"));
 });
 

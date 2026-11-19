@@ -16,8 +16,8 @@ let frascoSelecionado = null;
 let leitor = null;
 
 const chave = () => { try { return localStorage.getItem(CHAVE) || ""; } catch { return ""; } };
-const guardarChave = (k) => { try { localStorage.setItem(CHAVE, k); } catch  };
-const apagarChave = () => { try { localStorage.removeItem(CHAVE); } catch  };
+const guardarChave = (k) => { try { localStorage.setItem(CHAVE, k); } catch {} };
+const apagarChave = () => { try { localStorage.removeItem(CHAVE); } catch {} };
 
 function mensagem(texto, tipo) {
   const el = $("msg");
@@ -30,16 +30,16 @@ function pedirChave() {
   $("conteudo").hidden = true;
 }
 
-async function chamar(rota, opcoes = ) {
+async function chamar(rota, opcoes = {}) {
   const r = await fetch(API + rota, {
     ...opcoes,
     headers: {
       "Content-Type": "application/json",
       "x-admin-key": chave(),
-      ...(opcoes.headers || )
+      ...(opcoes.headers || {})
     }
   });
-  const j = await r.json().catch(() => ());
+  const j = await r.json().catch(() => ({}));
   return { ok: r.ok, status: r.status, j };
 }
 
@@ -107,7 +107,7 @@ function extrairCodigoLido(texto) {
   try {
     const idParam = new URL(t).searchParams.get("id");
     if (idParam) return idParam.trim().toUpperCase();
-  } catch 
+  } catch {}
   return t.toUpperCase();
 }
 
@@ -129,7 +129,7 @@ async function abrirLeitor() {
         fecharLeitor();
         mensagem("QR Code lido e preenchido no formulário!");
       },
-      () => 
+      () => {}
     );
     $("leitor-msg").textContent = "Aponte a câmera para a etiqueta QR Code do frasco.";
   } catch {
@@ -140,7 +140,7 @@ async function abrirLeitor() {
 async function fecharLeitor() {
   const l = leitor;
   leitor = null;
-  try { if (l) { await l.stop(); l.clear(); } } catch 
+  try { if (l) { await l.stop(); l.clear(); } } catch {}
   if ($("dlg-leitor").open) $("dlg-leitor").close();
 }
 

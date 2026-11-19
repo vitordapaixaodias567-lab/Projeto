@@ -4,12 +4,12 @@ const API = (window.BIOOLEO_API_URL || `https://projeto-7u2t.onrender.com`).repl
 const CHAVE = "bioleo_admin_key";
 
 const chave = () => { try { return localStorage.getItem(CHAVE) || ""; } catch { return ""; } };
-const guardarChave = (k) => { try { localStorage.setItem(CHAVE, k); } catch  };
-const apagarChave = () => { try { localStorage.removeItem(CHAVE); } catch  };
+const guardarChave = (k) => { try { localStorage.setItem(CHAVE, k); } catch {} };
+const apagarChave = () => { try { localStorage.removeItem(CHAVE); } catch {} };
 
-async function chamar(rota, opcoes = ) {
-    const r = await fetch(API + rota, { ...opcoes, headers: { "Content-Type": "application/json", "x-admin-key": chave(), ...(opcoes.headers || ) } });
-    const j = await r.json().catch(() => ());
+async function chamar(rota, opcoes = {}) {
+    const r = await fetch(API + rota, { ...opcoes, headers: { "Content-Type": "application/json", "x-admin-key": chave(), ...(opcoes.headers || {}) } });
+    const j = await r.json().catch(() => ({}));
     return { ok: r.ok, status: r.status, j };
 }
 

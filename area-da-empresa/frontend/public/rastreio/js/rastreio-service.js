@@ -32,7 +32,7 @@ window.RASTREIO_DEMO = {
   var MODO = q.get('demo') === '1' ? 'demo' : 'api';
   var API_BASE = (root.BIOOLEO_API_URL || 'https://projeto-7u2t.onrender.com') + '/api';
   function chaveEquipe() { try { return localStorage.getItem('bioleo_admin_key') || ''; } catch (e) { return ''; } }
-  function cab(extra) { var h = Object.assign(, extra), k = chaveEquipe(); if (k) h['x-admin-key'] = k; return h; }
+  function cab(extra) { var h = Object.assign({}, extra), k = chaveEquipe(); if (k) h['x-admin-key'] = k; return h; }
 
   function erro(codigo) { var e = new Error(codigo); e.codigo = codigo; return e; }
   function espera(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }

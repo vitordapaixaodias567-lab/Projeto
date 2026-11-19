@@ -69,7 +69,7 @@
   }
   function parar(t) {
     if (watchId != null) navigator.geolocation.clearWatch(watchId);
-    watchId = null; try { if (wake) wake.release(); } catch (e)  wake = null;
+    watchId = null; try { if (wake) wake.release(); } catch (e) {} wake = null;
     if (t) gps(t); if (atual) desenhar();
   }
   async function aoReceber(p) {
@@ -94,7 +94,7 @@
     catch (e) { gps(e.codigo === 'ENCERRADA' ? 'Esta coleta já foi encerrada.' : erroTxt(e)); }
   }
 
-  $('#btn-entrar').onclick = function () { try { localStorage.setItem('bioleo_admin_key', $('#chave').value.trim()); } catch (e)  carregarLista(); };
+  $('#btn-entrar').onclick = function () { try { localStorage.setItem('bioleo_admin_key', $('#chave').value.trim()); } catch (e) {} carregarLista(); };
   $('#btn-iniciar').onclick = iniciar; $('#btn-coletar').onclick = coletar;
   $('#btn-voltar').onclick = function () { parar(); atual = null; carregarLista(); };
   document.addEventListener('visibilitychange', async function () { if (!document.hidden && watchId != null && !wake && navigator.wakeLock) { try { wake = await navigator.wakeLock.request('screen'); } catch (e) { wake = null; } } });

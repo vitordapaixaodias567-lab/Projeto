@@ -110,7 +110,7 @@
       leitor = new Html5Qrcode('leitor');
       await leitor.start({ facingMode: 'environment' }, { fps: 10, qrbox: 240 }, function (txt) {
         fecharLeitor(); consultar(R.extrairId(txt));
-      }, function () );
+      }, function () {});
       set('#leitor-msg', 'Aponte a câmera para o QR Code do frasco.');
     } catch (e) {
       var seguro = window.isSecureContext;
@@ -121,7 +121,7 @@
   }
   async function fecharLeitor() {
     var l = leitor; leitor = null;
-    try { if (l) { await l.stop(); l.clear(); } } catch (e) 
+    try { if (l) { await l.stop(); l.clear(); } } catch (e) {}
     if ($('#dlg-leitor').open) $('#dlg-leitor').close();
   }
   $('#btn-ler').onclick = abrirLeitor;
@@ -185,7 +185,7 @@
 
   var watchId = null, ultimoEnvio = 0, wake = null, compartilhando = false;
   function msgPos(t) { $('#pos-msg').textContent = t; }
-  async function atualizarAgora() { try { frasco = await S.consultarFrasco(frasco.id, { publico: publico }); render(); } catch (e)  }
+  async function atualizarAgora() { try { frasco = await S.consultarFrasco(frasco.id, { publico: publico }); render(); } catch (e) {} }
   async function pegarWakeLock() { try { if (navigator.wakeLock && !wake) wake = await navigator.wakeLock.request('screen'); } catch (e) { wake = null; } }
 
   async function iniciarVivo() {
@@ -203,7 +203,7 @@
     compartilhando = false;
     if (watchId != null) navigator.geolocation.clearWatch(watchId);
     watchId = null;
-    try { if (wake) wake.release(); } catch (e) 
+    try { if (wake) wake.release(); } catch (e) {}
     wake = null;
     $('#btn-vivo').textContent = 'Compartilhar posição ao vivo'; $('#btn-vivo').classList.remove('btn-ativo');
     if (msg) msgPos(msg);
