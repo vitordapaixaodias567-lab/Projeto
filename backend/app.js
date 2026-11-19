@@ -112,7 +112,7 @@ setInterval(() => limparLocalizacoes().catch(() => {}), 24 * 3600 * 1000).unref(
 
 // --- Adicionado para o Render ---
 // 1. Servir a Tela do Cliente (arquivos estaticos na raiz do repositorio)
-app.use(require('express').static(path.join(__dirname, '../')));
+app.use(express.static(path.join(__dirname, '../')));
 
 // 2. Servir a Tela da Empresa (Build do React/Vite)
 app.use('/empresa', require('express').static(path.join(__dirname, '../area-da-empresa/frontend/dist')));
